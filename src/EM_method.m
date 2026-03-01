@@ -1,4 +1,9 @@
-% EM simulation
+% EM_METHOD  Simulate the SIR model using the Euler-Maruyama (DTMC) method.
+%   Implements the Euler-Maruyama stochastic numerical scheme for the SIR
+%   stochastic differential equation model. Approximates the continuous-time
+%   dynamics with discrete time-steps and Wiener process noise terms.
+%
+%   Uses globals: N, days, beta, gamma, i, x, y, f1, f3
 % ------------------------------------
 % The variables used are -
 % dt -- Fractional time-step
@@ -7,14 +12,11 @@
 % I -- Simulated number of infectives
 % R -- Simulated number of removed
 % t -- Particular time instant
-% eta -- vector of two normally random numbers to simulate Wiener processes
+% eta -- Vector of two normally random numbers to simulate Wiener processes
 % f -- Expected transmitted and removed populations at t
 % gw -- Covariance values for time-step t (simplified vector form)
 % s -- Simulated susceptible population for time-step t+1
 % i1 -- Simulated infected population for time-step t+1
-% ------------------------------------
-% The functions used are - 
-% randn -- Standard normally random number generator ~ N(0,1)
 % ------------------------------------
 
 function []=EM_method()
@@ -22,7 +24,7 @@ function []=EM_method()
     global N days beta gamma
     global i x y
     global f1 f3
-    
+
     dt=1;
     steps=(4*days-x)*dt;
     S=zeros(steps,1);
@@ -51,7 +53,7 @@ function []=EM_method()
          end
     end
     R=N-S-I;                        %S+I+R=N at any time-step
-    
+
     if days~=200
         figure(f1);
         plot(x:y-1,I(1:y-x),'-m','DisplayName','EM Method');
@@ -62,5 +64,5 @@ function []=EM_method()
     hold on;
     plot(x:steps+x-1,I,'-r','DisplayName','EM I');
     plot(x:steps+x-1,R,'-g','DisplayName','EM R');
-    
+
 end

@@ -1,5 +1,12 @@
-% Main Script to be executed
-% Saves plots and displays attributes
+% MAIN_SCRIPT  Main driver script for SIR epidemiological analysis of COVID-19 in India.
+%   Runs the full analysis pipeline: theoretical SIR simulation, then
+%   parameter estimation and simulation for three phases of COVID-19
+%   (pre-lockdown, lockdown, post-lockdown) and an overall analysis.
+%   Saves all generated plots as PNG files in the ../results/ directory.
+%
+%   NOTE: This script should be run from the src/ directory so that
+%   relative paths to data/ and results/ resolve correctly.
+%
 % ------------------------------------
 % The variables used are -
 % N -- Total population
@@ -7,7 +14,7 @@
 % x -- Start index of time period
 % y -- End index of time period
 % i -- Initial number of infectives
-% beta -- Estimated value of transmission parameter 
+% beta -- Estimated value of transmission parameter
 % gamma -- Estimated value of removal parameter
 % flag -- Epidemic status according to Deterministic Theorem
 % p -- Probability of a major outbreak
@@ -30,7 +37,7 @@
 % ------------------------------------
 
 global days beta gamma
-global x y i 
+global x y i
 global I N date
 global f1 f2 f3
 
@@ -59,9 +66,9 @@ end
 disp(" ");
 EM_method;
 gillespie;
-saveas(f2,'ODE_theory.png');
-saveas(f3,'EM_theory.png')
-saveas(f1,'Gillespie_theory.png')
+saveas(f2,'../results/ODE_theory.png');
+saveas(f3,'../results/EM_theory.png')
+saveas(f1,'../results/Gillespie_theory.png')
 
 get_data;
 
@@ -91,9 +98,9 @@ end
 disp(" ");
 gillespie;
 EM_method;
-saveas(f1,'Estimation_1.png');
-saveas(f2,'ODE_1.png');
-saveas(f3,'EM_1.png');
+saveas(f1,'../results/Estimation_1.png');
+saveas(f2,'../results/ODE_1.png');
+saveas(f3,'../results/EM_1.png');
 
 close all
 x=64;
@@ -119,9 +126,9 @@ end
 disp(" ");
 %gillespie;
 EM_method;
-saveas(f1,'Estimation_2.png');
-saveas(f2,'ODE_2.png');
-saveas(f3,'EM_2.png');
+saveas(f1,'../results/Estimation_2.png');
+saveas(f2,'../results/ODE_2.png');
+saveas(f3,'../results/EM_2.png');
 
 close all
 x=131;
@@ -147,9 +154,9 @@ end
 disp(" ");
 %gillespie;
 EM_method;
-saveas(f1,'Estimation_3.png');
-saveas(f2,'ODE_3.png');
-saveas(f3,'EM_3.png');
+saveas(f1,'../results/Estimation_3.png');
+saveas(f2,'../results/ODE_3.png');
+saveas(f3,'../results/EM_3.png');
 
 close all
 x=43;
@@ -174,6 +181,6 @@ else
 end
 %gillespie;
 EM_method;
-saveas(f1,'Estimation_overall.png');
-saveas(f2,'ODE_overall.png');
-saveas(f3,'EM_overall.png');
+saveas(f1,'../results/Estimation_overall.png');
+saveas(f2,'../results/ODE_overall.png');
+saveas(f3,'../results/EM_overall.png');

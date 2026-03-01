@@ -1,22 +1,26 @@
-% Function used for optimization and finding the solution for beta and gamma
-% ------------------------------------
-% The variables are - 
-% m -- Time-span
-% sol -- Solution of ODE
-% f -- Mean squared error
+% OPTIM_FUN  Objective function for SIR parameter estimation.
+%   Computes the mean squared error between observed S/I data and the
+%   ODE45 solution for a given set of parameters [beta, gamma].
+%
+%   Input:
+%       params - Vector [beta, gamma] of candidate parameter values
+%
+%   Output:
+%       f - Normalized mean squared error between model and data
+%
+%   Uses globals: S, I, x, y
 % ------------------------------------
 % The functions used are-
 % ode45 -- Non-stiff ODE solver
 % odefunc -- Sets SIR Model
-% norm -- Normalizing function
 % ------------------------------------
 
-function f = optim_fun(params)  
+function f = optim_fun(params)
 
     global S I x y
-    
+
     m=y-x+1;
-    
+
     %solve ODE
     try
         warning('off')
@@ -26,9 +30,9 @@ function f = optim_fun(params)
         f=NaN;
         warning('on')
         return
-    end     
-    
+    end
+
     %calculate optimization function
     f =  (norm((S(x:y) - sol(:,1))) + norm((I(x:y) - sol(:,2))))/m;
-    
+
 end

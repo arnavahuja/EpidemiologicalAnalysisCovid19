@@ -1,0 +1,3 @@
+# Python dependencies for data_extraction.py
+# All modules used (re, csv) are part of the Python standard library.
+# No external packages required.

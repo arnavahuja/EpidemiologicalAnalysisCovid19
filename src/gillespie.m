@@ -1,29 +1,32 @@
-% Gillespie Algorithm
+% GILLESPIE  Simulate the SIR model using the Gillespie (CTMC) algorithm.
+%   Implements the Gillespie stochastic simulation algorithm for the SIR
+%   continuous-time Markov chain model. Each event (infection or removal)
+%   is drawn from exponential inter-event times with rates proportional
+%   to the current state.
+%
+%   Uses globals: N, beta, gamma, i, x, y, f1
 % ------------------------------------
 % The variables used are -
 % t -- Time-steps
-% s -- Susceptible individuals at particular time step
+% S -- Susceptible individuals at particular time step
 % I -- Infected individuals at each time step
-% u -- Vector of 2 uniformly random numbers to simulate intervent time and event occurrence
-% lambda -- total rate of either event occurring
-% ------------------------------------
-% The functions used are -
-% rand -- Uniformly random generator ~ U(0,1)
+% u -- Vector of 2 uniformly random numbers to simulate inter-event time and event occurrence
+% lambda -- Total rate of either event occurring
 % ------------------------------------
 
 function [] = gillespie()
 
     global N beta gamma
-    global i x y 
+    global i x y
     global f1
 
     t=x;                                    %initial time
-    S=N-i;                                  %initial susceptible population 
-    I=i;                                    %initial susceptible population
+    S=N-i;                                  %initial susceptible population
+    I=i;                                    %initial infected population
 
     while(t(1)<y && I(1)~=0)                %time for occurence of event can't exceed total time
         u=rand(2,1);
-        lambda=(beta*S(1)*I(1))/N+gamma*I(1); 
+        lambda=(beta*S(1)*I(1))/N+gamma*I(1);
         t =[t(1)-log(u(1))/lambda; t];      %simulation of time at which next event occurs
         if u(2)<=beta*S*I(1)/(N*lambda)     %condition for transmission to occur
             if S(1)~=0
